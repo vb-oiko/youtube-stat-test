@@ -62,13 +62,13 @@
 <script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
-const DEFAULT_CHANNEL_ID = import.meta.env.VITE_DEFAULT_CHANNEL_ID;
+const DEFAULT_CHANNEL_ID = import.meta.env.VITE_DEFAULT_CHANNEL_ID as string;
 
 export default defineComponent({
   name: "YoutubeStatsPage",
 
   mounted() {
-    this.inputEl.focus();
+    ((this.inputEl as unknown) as HTMLInputElement).focus();
   },
 
   setup: () => {
