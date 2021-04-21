@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white p-4 sm:px-20 sm:pb-8 sm:pt-16 rounded-lg shadow-lg max-w-lg h-120"
+    class="bg-white px-4 pt-8 sm:px-20 sm:pb-8 sm:pt-16 sm:rounded-lg sm:shadow-lg sm:max-w-lg sm:h-120"
   >
     <h2
       class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate"
@@ -25,7 +25,7 @@
       </div>
     </form>
 
-    <div class="h-60 mt-5 overflow-y-auto">
+    <div class="sm:h-60 mt-5 sm:overflow-y-auto">
       <div v-if="data.status.start" class="text-gray-500">
         Please type in some YouTube channel id
       </div>
