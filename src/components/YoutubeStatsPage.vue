@@ -6,18 +6,22 @@
       YouTube Channel Stats
     </h2>
 
-    <label for="email" class="mt-10 block text-sm font-medium text-gray-700"
-      >YouTube Channel ID</label
-    >
-    <div class="mt-1">
-      <input
-        type="text"
-        name="channelId"
-        id="channelId"
-        class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-        placeholder=""
-      />
-    </div>
+    <form action="submit" @submit.prevent="onSubmit">
+      <label for="email" class="mt-10 block text-sm font-medium text-gray-700"
+        >YouTube Channel ID</label
+      >
+      <div class="mt-1">
+        <input
+          type="text"
+          name="channelId"
+          id="channelId"
+          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+          placeholder=""
+          v-model="id"
+          ref="inputEl"
+        />
+      </div>
+    </form>
 
     <div class="py-5">
       <h3 class="text-lg leading-6 font-medium text-gray-900">Channel Stats</h3>
@@ -47,7 +51,12 @@ import { ref, defineComponent, reactive } from "vue";
 export default defineComponent({
   name: "YoutubeStatsPage",
 
+  mounted() {
+    this.inputEl.focus();
+  },
+
   setup: () => {
+    const inputEl = ref(null);
     const id = ref(null);
     const dataItems = reactive([
       { label: "Channel Name", value: "ertbhwh5" },
@@ -55,7 +64,11 @@ export default defineComponent({
       { label: "Average Views", value: 100 },
     ]);
 
-    return { id, dataItems };
+    const onSubmit = () => {
+      console.warn(id.value);
+    };
+
+    return { inputEl, id, dataItems, onSubmit };
   },
 });
 </script>
