@@ -1,27 +1,25 @@
-# Vue 3 + Typescript + Vite
+# Test assignment
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+## Requirements
 
-## Recommended IDE Setup
+1. Create a web page using Vue.js.
+2. The Page should present the following data for a YouTube Channel of your choice, using YouTube Data API:
+   - Channel Name
+   - Total number of views for all videos of the channel
+   - Avg Views number
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+## Final notes
 
-### If Using `<script setup>`
+I wanted to make the page to look a bit fancier. Also it was a great opportunity for me to learn something new - Vite bundler in this case.
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+### What has been done
 
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
-
-### If Using Volar
-
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
-
-### If Using Vetur
-
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+- used Vue.js, TypeScript and TailWind CSS - the stack I love
+- added favicon
+- added mobile layout
+- added an input field for YouTube channel ID
+- added two environment variables to .env file:
+  - one for YouTube API key
+  - one for default channel ID set to that of PewDiePie channel
+- if you press Enter in an empty input default channel ID is used
+- deployed to GitHub Pages [https://vb-oiko.github.io/youtube-stat-test/](https://vb-oiko.github.io/youtube-stat-test/)
