@@ -33,6 +33,7 @@
         Whoops, something went wrong. <br />Please check if the id is correct
       </div>
       <div v-if="data.status.loading">Loading...</div>
+      <div v-if="data.status.notFound" class="text-yellow-700">There is no channel with such an id.</div>
 
       <div v-show="data.status.success">
         <h3 class="text-lg leading-6 font-medium text-gray-900 mb-5">
@@ -81,11 +82,13 @@ export default defineComponent({
         error: false,
         loading: false,
         success: false,
+        notFound: false,
       } as {
         start?: boolean;
         error?: boolean;
         loading?: boolean;
         success?: boolean;
+        notFound?: boolean;
       },
     });
 
@@ -95,7 +98,7 @@ export default defineComponent({
       }
 
       data.status = { loading: true };
-      const requestUrl = `https://www.googleapis.com/youtube/v3/channels?id=${DEFAULT_CHANNEL_ID}&key=${API_KEY}&part=brandingSettings,statistics`;
+      const requestUrl = `https://www.googleapis.com/youtube/v3/channels?id=${id.value}&key=${API_KEY}&part=brandingSettings,statistics`;
 
       const response = await fetch(requestUrl).catch(() => {
         data.status = { error: true };
@@ -123,7 +126,9 @@ export default defineComponent({
           { label: "Average Views", value: Math.round(viewCount / videoCount) },
         ];
         data.status = { success: true };
+        return
       }
+      data.status = { notFound: true };
     };
 
     return { inputEl, id, data, onSubmit, DEFAULT_CHANNEL_ID };
