@@ -32,7 +32,7 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
       <dl class="sm:divide-y sm:divide-gray-200">
         <div
-          v-for="(item, ind) in dataItems"
+          v-for="(item, ind) in data.items"
           :key="ind"
           class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4"
         >
@@ -48,6 +48,9 @@
 
 <script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
+const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+const DEFAULT_CHANNEL_ID = import.meta.env.VITE_DEFAULT_CHANNEL_ID;
+
 export default defineComponent({
   name: "YoutubeStatsPage",
 
@@ -57,18 +60,34 @@ export default defineComponent({
 
   setup: () => {
     const inputEl = ref(null);
-    const id = ref(null);
-    const dataItems = reactive([
-      { label: "Channel Name", value: "ertbhwh5" },
-      { label: "Total Views", value: 1000 },
-      { label: "Average Views", value: 100 },
-    ]);
+    const id = ref("");
+    const data = reactive({
+      items: [] as { label: string; value: string | number }[],
+    });
 
-    const onSubmit = () => {
-      console.warn(id.value);
+    const onSubmit = async () => {
+      const requestUrl = `https://www.googleapis.com/youtube/v3/channels?id=${DEFAULT_CHANNEL_ID}&key=${API_KEY}&part=brandingSettings,statistics`;
+
+      const response = await fetch(requestUrl);
+      const stats = await response.json();
+
+      if (stats && stats.items && stats.items.length) {
+        const {
+          brandingSettings: {
+            channel: { title },
+          },
+          statistics: { videoCount, viewCount },
+        } = stats.items[0];
+
+        data.items = [
+          { label: "Channel Name", value: title },
+          { label: "Total Views", value: viewCount },
+          { label: "Average Views", value: Math.round(viewCount / videoCount) },
+        ];
+      }
     };
 
-    return { inputEl, id, dataItems, onSubmit };
+    return { inputEl, id, data, onSubmit };
   },
 });
 </script>
